@@ -1322,7 +1322,14 @@ function markKnown(known) {
     if (known && !state.known.includes(idx)) state.known.push(idx);
     if (!known) { const i = state.known.indexOf(idx); if (i >= 0) state.known.splice(i, 1); }
     saveState();
-    if (fcIndex < fcWords.length - 1) nextCard();
+    if (!known) {
+        // 모르는 단어: 뒤집어서 뜻 보여주고 발음 재생
+        const card = document.getElementById('flashcardEl');
+        if (!card.classList.contains('flipped')) card.classList.add('flipped');
+        fcSpeak('hanzi');
+    } else {
+        if (fcIndex < fcWords.length - 1) nextCard();
+    }
 }
 
 // ===== 퀴즈 =====
