@@ -493,8 +493,12 @@
     <!-- 플래시카드 -->
     <div id="flashcard" class="section">
         <div class="flashcard-controls">
+            <select id="fcMode" onchange="initFlashcards()" style="margin-right:4px;">
+                <option value="word">단어 카드</option>
+                <option value="phrase">짧은 문장 카드</option>
+            </select>
             <select id="fcCategory" onchange="initFlashcards()">
-                <option value="all">전체 단어</option>
+                <option value="all">전체</option>
                 <option value="starred">즐겨찾기만</option>
                 <option value="unknown">모르는 단어만</option>
             </select>
@@ -1290,15 +1294,138 @@ function updateSoundBtnState(mode, playing) {
     if (exBtn) exBtn.classList.toggle('playing', playing && mode === 'example');
 }
 
+// ===== 짧은 문장 데이터 =====
+const phrases = [
+    // 위치/방향
+    {hanzi:"门上",pinyin:"mén shàng",meaning:"문 위에",category:"위치"},
+    {hanzi:"门前",pinyin:"mén qián",meaning:"문 앞에",category:"위치"},
+    {hanzi:"门后",pinyin:"mén hòu",meaning:"문 뒤에",category:"위치"},
+    {hanzi:"开门",pinyin:"kāi mén",meaning:"문을 열다",category:"동작"},
+    {hanzi:"关门",pinyin:"guān mén",meaning:"문을 닫다",category:"동작"},
+    {hanzi:"桌子上",pinyin:"zhuōzi shàng",meaning:"책상 위에",category:"위치"},
+    {hanzi:"桌子下",pinyin:"zhuōzi xià",meaning:"책상 아래에",category:"위치"},
+    {hanzi:"椅子上",pinyin:"yǐzi shàng",meaning:"의자 위에",category:"위치"},
+    {hanzi:"房间里",pinyin:"fángjiān lǐ",meaning:"방 안에",category:"위치"},
+    {hanzi:"房间外",pinyin:"fángjiān wài",meaning:"방 밖에",category:"위치"},
+    {hanzi:"学校旁边",pinyin:"xuéxiào pángbiān",meaning:"학교 옆에",category:"위치"},
+    {hanzi:"公园对面",pinyin:"gōngyuán duìmiàn",meaning:"공원 맞은편에",category:"위치"},
+    {hanzi:"超市附近",pinyin:"chāoshì fùjìn",meaning:"슈퍼마켓 근처에",category:"위치"},
+    {hanzi:"银行前面",pinyin:"yínháng qiánmiàn",meaning:"은행 앞에",category:"위치"},
+    {hanzi:"医院后面",pinyin:"yīyuàn hòumiàn",meaning:"병원 뒤에",category:"위치"},
+    // 일상 동작
+    {hanzi:"吃早饭",pinyin:"chī zǎofàn",meaning:"아침을 먹다",category:"동작"},
+    {hanzi:"吃午饭",pinyin:"chī wǔfàn",meaning:"점심을 먹다",category:"동작"},
+    {hanzi:"吃晚饭",pinyin:"chī wǎnfàn",meaning:"저녁을 먹다",category:"동작"},
+    {hanzi:"喝水",pinyin:"hē shuǐ",meaning:"물을 마시다",category:"동작"},
+    {hanzi:"喝咖啡",pinyin:"hē kāfēi",meaning:"커피를 마시다",category:"동작"},
+    {hanzi:"看书",pinyin:"kàn shū",meaning:"책을 읽다",category:"동작"},
+    {hanzi:"看电影",pinyin:"kàn diànyǐng",meaning:"영화를 보다",category:"동작"},
+    {hanzi:"看电视",pinyin:"kàn diànshì",meaning:"TV를 보다",category:"동작"},
+    {hanzi:"听音乐",pinyin:"tīng yīnyuè",meaning:"음악을 듣다",category:"동작"},
+    {hanzi:"写作业",pinyin:"xiě zuòyè",meaning:"숙제를 쓰다",category:"동작"},
+    {hanzi:"做作业",pinyin:"zuò zuòyè",meaning:"숙제를 하다",category:"동작"},
+    {hanzi:"上课",pinyin:"shàng kè",meaning:"수업하다",category:"동작"},
+    {hanzi:"下课",pinyin:"xià kè",meaning:"수업이 끝나다",category:"동작"},
+    {hanzi:"上班",pinyin:"shàng bān",meaning:"출근하다",category:"동작"},
+    {hanzi:"下班",pinyin:"xià bān",meaning:"퇴근하다",category:"동작"},
+    {hanzi:"起床",pinyin:"qǐ chuáng",meaning:"일어나다",category:"동작"},
+    {hanzi:"睡觉",pinyin:"shuì jiào",meaning:"잠을 자다",category:"동작"},
+    {hanzi:"洗脸",pinyin:"xǐ liǎn",meaning:"세수하다",category:"동작"},
+    {hanzi:"刷牙",pinyin:"shuā yá",meaning:"양치하다",category:"동작"},
+    {hanzi:"穿衣服",pinyin:"chuān yīfu",meaning:"옷을 입다",category:"동작"},
+    {hanzi:"换衣服",pinyin:"huàn yīfu",meaning:"옷을 갈아입다",category:"동작"},
+    {hanzi:"洗衣服",pinyin:"xǐ yīfu",meaning:"빨래하다",category:"동작"},
+    {hanzi:"打扫房间",pinyin:"dǎsǎo fángjiān",meaning:"방을 청소하다",category:"동작"},
+    // 이동
+    {hanzi:"去学校",pinyin:"qù xuéxiào",meaning:"학교에 가다",category:"이동"},
+    {hanzi:"去超市",pinyin:"qù chāoshì",meaning:"슈퍼에 가다",category:"이동"},
+    {hanzi:"去医院",pinyin:"qù yīyuàn",meaning:"병원에 가다",category:"이동"},
+    {hanzi:"去公园",pinyin:"qù gōngyuán",meaning:"공원에 가다",category:"이동"},
+    {hanzi:"回家",pinyin:"huí jiā",meaning:"집에 돌아가다",category:"이동"},
+    {hanzi:"出去",pinyin:"chū qù",meaning:"나가다",category:"이동"},
+    {hanzi:"进来",pinyin:"jìn lái",meaning:"들어오다",category:"이동"},
+    {hanzi:"上楼",pinyin:"shàng lóu",meaning:"위층으로 올라가다",category:"이동"},
+    {hanzi:"下楼",pinyin:"xià lóu",meaning:"아래층으로 내려가다",category:"이동"},
+    {hanzi:"坐公共汽车",pinyin:"zuò gōnggòng qìchē",meaning:"버스를 타다",category:"이동"},
+    {hanzi:"坐地铁",pinyin:"zuò dìtiě",meaning:"지하철을 타다",category:"이동"},
+    {hanzi:"骑自行车",pinyin:"qí zìxíngchē",meaning:"자전거를 타다",category:"이동"},
+    // 날씨/시간
+    {hanzi:"下雨了",pinyin:"xià yǔ le",meaning:"비가 온다",category:"날씨"},
+    {hanzi:"下雪了",pinyin:"xià xuě le",meaning:"눈이 온다",category:"날씨"},
+    {hanzi:"刮风了",pinyin:"guā fēng le",meaning:"바람이 분다",category:"날씨"},
+    {hanzi:"天气很热",pinyin:"tiānqì hěn rè",meaning:"날씨가 매우 덥다",category:"날씨"},
+    {hanzi:"天气很冷",pinyin:"tiānqì hěn lěng",meaning:"날씨가 매우 춥다",category:"날씨"},
+    {hanzi:"天气很好",pinyin:"tiānqì hěn hǎo",meaning:"날씨가 매우 좋다",category:"날씨"},
+    {hanzi:"今天星期一",pinyin:"jīntiān xīngqī yī",meaning:"오늘은 월요일이다",category:"시간"},
+    {hanzi:"现在几点",pinyin:"xiànzài jǐ diǎn",meaning:"지금 몇 시인가요",category:"시간"},
+    {hanzi:"早上好",pinyin:"zǎoshang hǎo",meaning:"좋은 아침",category:"인사"},
+    {hanzi:"晚上好",pinyin:"wǎnshang hǎo",meaning:"좋은 저녁",category:"인사"},
+    // 감정/상태
+    {hanzi:"很高兴",pinyin:"hěn gāoxìng",meaning:"매우 기쁘다",category:"감정"},
+    {hanzi:"很难过",pinyin:"hěn nánguò",meaning:"매우 슬프다",category:"감정"},
+    {hanzi:"很生气",pinyin:"hěn shēngqì",meaning:"매우 화나다",category:"감정"},
+    {hanzi:"很担心",pinyin:"hěn dānxīn",meaning:"매우 걱정된다",category:"감정"},
+    {hanzi:"很害怕",pinyin:"hěn hàipà",meaning:"매우 무섭다",category:"감정"},
+    {hanzi:"很着急",pinyin:"hěn zháojí",meaning:"매우 조급하다",category:"감정"},
+    {hanzi:"很兴奋",pinyin:"hěn xīngfèn",meaning:"매우 흥분된다",category:"감정"},
+    {hanzi:"肚子饿了",pinyin:"dùzi è le",meaning:"배가 고프다",category:"상태"},
+    {hanzi:"口渴了",pinyin:"kǒu kě le",meaning:"목이 마르다",category:"상태"},
+    {hanzi:"很累了",pinyin:"hěn lèi le",meaning:"매우 피곤하다",category:"상태"},
+    {hanzi:"头很疼",pinyin:"tóu hěn téng",meaning:"머리가 매우 아프다",category:"상태"},
+    {hanzi:"感冒了",pinyin:"gǎnmào le",meaning:"감기에 걸렸다",category:"상태"},
+    {hanzi:"发烧了",pinyin:"fāshāo le",meaning:"열이 났다",category:"상태"},
+    // 자주 쓰는 표현
+    {hanzi:"没关系",pinyin:"méi guānxi",meaning:"괜찮아요",category:"표현"},
+    {hanzi:"对不起",pinyin:"duìbuqǐ",meaning:"미안합니다",category:"표현"},
+    {hanzi:"不客气",pinyin:"bú kèqi",meaning:"천만에요",category:"표현"},
+    {hanzi:"没问题",pinyin:"méi wèntí",meaning:"문제없어요",category:"표현"},
+    {hanzi:"太好了",pinyin:"tài hǎo le",meaning:"너무 좋아요",category:"표현"},
+    {hanzi:"好的",pinyin:"hǎo de",meaning:"좋아요, 알겠어요",category:"표현"},
+    {hanzi:"当然可以",pinyin:"dāngrán kěyǐ",meaning:"당연히 되죠",category:"표현"},
+    {hanzi:"别担心",pinyin:"bié dānxīn",meaning:"걱정하지 마세요",category:"표현"},
+    {hanzi:"请等一下",pinyin:"qǐng děng yíxià",meaning:"잠깐 기다려주세요",category:"표현"},
+    {hanzi:"我不知道",pinyin:"wǒ bù zhīdào",meaning:"나는 모르겠어요",category:"표현"},
+    {hanzi:"你说什么",pinyin:"nǐ shuō shénme",meaning:"뭐라고 했어요?",category:"표현"},
+    {hanzi:"再说一次",pinyin:"zài shuō yí cì",meaning:"다시 한번 말해주세요",category:"표현"},
+    {hanzi:"慢慢说",pinyin:"mànman shuō",meaning:"천천히 말해주세요",category:"표현"},
+    {hanzi:"我听不懂",pinyin:"wǒ tīng bù dǒng",meaning:"못 알아듣겠어요",category:"표현"},
+    {hanzi:"多少钱",pinyin:"duōshao qián",meaning:"얼마예요?",category:"표현"},
+    {hanzi:"太贵了",pinyin:"tài guì le",meaning:"너무 비싸요",category:"표현"},
+    {hanzi:"便宜一点",pinyin:"piányi yìdiǎn",meaning:"좀 싸게 해주세요",category:"표현"},
+    // 짧은 문장
+    {hanzi:"我想去中国",pinyin:"wǒ xiǎng qù zhōngguó",meaning:"나는 중국에 가고 싶다",category:"문장"},
+    {hanzi:"你吃饭了吗",pinyin:"nǐ chīfàn le ma",meaning:"밥 먹었어?",category:"문장"},
+    {hanzi:"我在学中文",pinyin:"wǒ zài xué zhōngwén",meaning:"나는 중국어를 공부하고 있다",category:"문장"},
+    {hanzi:"请帮我一下",pinyin:"qǐng bāng wǒ yíxià",meaning:"좀 도와주세요",category:"문장"},
+    {hanzi:"你去哪儿",pinyin:"nǐ qù nǎr",meaning:"어디 가세요?",category:"문장"},
+    {hanzi:"我很喜欢吃中国菜",pinyin:"wǒ hěn xǐhuan chī zhōngguó cài",meaning:"나는 중국 요리 먹는 걸 매우 좋아한다",category:"문장"},
+    {hanzi:"这个怎么说",pinyin:"zhège zěnme shuō",meaning:"이것은 어떻게 말해요?",category:"문장"},
+    {hanzi:"你能教我吗",pinyin:"nǐ néng jiāo wǒ ma",meaning:"저를 가르쳐줄 수 있어요?",category:"문장"},
+    {hanzi:"我每天都很忙",pinyin:"wǒ měitiān dōu hěn máng",meaning:"나는 매일 매우 바쁘다",category:"문장"},
+    {hanzi:"明天见",pinyin:"míngtiān jiàn",meaning:"내일 봐요",category:"문장"},
+    {hanzi:"祝你生日快乐",pinyin:"zhù nǐ shēngrì kuàilè",meaning:"생일 축하해요",category:"문장"},
+    {hanzi:"新年快乐",pinyin:"xīnnián kuàilè",meaning:"새해 복 많이 받으세요",category:"문장"},
+    {hanzi:"路上小心",pinyin:"lùshang xiǎoxīn",meaning:"길 조심해요",category:"문장"},
+    {hanzi:"我迟到了",pinyin:"wǒ chídào le",meaning:"지각했어요",category:"문장"},
+    {hanzi:"考试加油",pinyin:"kǎoshì jiāyóu",meaning:"시험 화이팅",category:"문장"},
+];
+
 // ===== 플래시카드 =====
 let fcWords = [], fcIndex = 0;
+let fcCurrentMode = 'word'; // 'word' or 'phrase'
 
 function initFlashcards() {
-    const mode = document.getElementById('fcCategory')?.value || 'all';
-    if (mode === 'starred') fcWords = state.starred.map(i => words[i]);
-    else if (mode === 'unknown') fcWords = words.filter((w, i) => !state.known.includes(i));
-    else fcWords = [...words];
-    if (fcWords.length === 0) fcWords = [...words];
+    fcCurrentMode = document.getElementById('fcMode')?.value || 'word';
+    const filter = document.getElementById('fcCategory')?.value || 'all';
+
+    if (fcCurrentMode === 'phrase') {
+        fcWords = [...phrases];
+    } else {
+        if (filter === 'starred') fcWords = state.starred.map(i => words[i]);
+        else if (filter === 'unknown') fcWords = words.filter((w, i) => !state.known.includes(i));
+        else fcWords = [...words];
+    }
+    if (fcWords.length === 0) fcWords = fcCurrentMode === 'phrase' ? [...phrases] : [...words];
     fcIndex = 0;
     showCard();
 }
@@ -1319,7 +1446,7 @@ function showCard() {
     document.getElementById('fcHanzi').textContent = w.hanzi;
     document.getElementById('fcPinyin').textContent = w.pinyin;
     document.getElementById('fcMeaning').textContent = w.meaning;
-    document.getElementById('fcExample').textContent = w.ex || '';
+    document.getElementById('fcExample').textContent = w.ex || w.category || '';
     document.getElementById('fcProgress').textContent = `${fcIndex + 1} / ${fcWords.length}`;
     document.getElementById('flashcardEl').classList.remove('flipped');
     // 자동 재생
