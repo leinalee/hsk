@@ -1164,62 +1164,50 @@ function toggleStar(idx) {
     saveState(); renderWords();
 }
 
-// ===== 음성 합성 (TTS) 엔진 =====
-let ttsVoices = [];
-let ttsReady = false;
-
-function initTTS() {
-    if (!('speechSynthesis' in window)) return;
-    function loadVoices() {
-        ttsVoices = speechSynthesis.getVoices();
-        if (ttsVoices.length > 0) ttsReady = true;
-    }
-    loadVoices();
-    speechSynthesis.onvoiceschanged = loadVoices;
-    // Chrome 워밍업: 빈 utterance로 초기화
-    const warmup = new SpeechSynthesisUtterance('');
-    warmup.volume = 0;
-    speechSynthesis.speak(warmup);
-}
-initTTS();
-
-function getZhVoice() {
-    if (!ttsVoices.length) ttsVoices = speechSynthesis.getVoices();
-    return ttsVoices.find(v => v.lang === 'zh-CN')
-        || ttsVoices.find(v => v.lang.startsWith('zh'))
-        || null;
-}
+// ===== 음성 합성 (TTS) 엔진 - Google Translate TTS =====
+let currentAudio = null;
 
 function doSpeak(text, rate, onEnd) {
-    if (!('speechSynthesis' in window)) {
-        alert('이 브라우저는 음성 합성을 지원하지 않습니다.');
-        return;
+    // 이전 재생 중지
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
     }
+    const encoded = encodeURIComponent(text);
+    const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encoded}`;
+    const audio = new Audio(url);
+    audio.playbackRate = rate || 1;
+    currentAudio = audio;
+    audio.onended = () => { currentAudio = null; if (onEnd) onEnd(); };
+    audio.onerror = () => { currentAudio = null; if (onEnd) onEnd(); };
+    audio.play().catch(() => {
+        // Google TTS 실패 시 브라우저 내장 TTS 폴백
+        doSpeakFallback(text, rate, onEnd);
+    });
+}
+
+function doSpeakFallback(text, rate, onEnd) {
+    if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
     speechSynthesis.cancel();
-    // Chrome 버그 회피: cancel() 후 약간의 지연
     setTimeout(() => {
         const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'zh-CN';
-        u.rate = rate || 0.85;
-        u.volume = 1;
-        const voice = getZhVoice();
-        if (voice) u.voice = voice;
+        u.lang = 'zh-CN'; u.rate = rate || 0.85; u.volume = 1;
+        const voices = speechSynthesis.getVoices();
+        const v = voices.find(v => v.lang === 'zh-CN') || voices.find(v => v.lang.startsWith('zh'));
+        if (v) u.voice = v;
         u.onend = () => { if (onEnd) onEnd(); };
-        u.onerror = (e) => { console.warn('TTS error:', e); if (onEnd) onEnd(); };
-        // Chrome 15초 일시정지 버그 회피
-        let resumeTimer = setInterval(() => {
-            if (speechSynthesis.speaking && !speechSynthesis.paused) return;
-            if (speechSynthesis.paused) speechSynthesis.resume();
-        }, 5000);
-        const origEnd = u.onend;
-        u.onend = () => { clearInterval(resumeTimer); if (origEnd) origEnd(); };
-        u.onerror = (e) => { clearInterval(resumeTimer); console.warn('TTS error:', e); if (onEnd) onEnd(); };
+        u.onerror = () => { if (onEnd) onEnd(); };
         speechSynthesis.speak(u);
     }, 50);
 }
 
+function stopAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+}
+
 function speakWord(text, rate) {
-    doSpeak(text, rate || 0.8);
+    doSpeak(text, rate || 1);
 }
 
 // ===== 플래시카드 소리 듣기 =====
@@ -1310,7 +1298,7 @@ function shuffleFlashcards() {
 function showCard() {
     if (!fcWords.length) return;
     stopFcRepeat();
-    speechSynthesis.cancel();
+    stopAudio();
     const w = fcWords[fcIndex];
     document.getElementById('fcHanzi').textContent = w.hanzi;
     document.getElementById('fcPinyin').textContent = w.pinyin;
