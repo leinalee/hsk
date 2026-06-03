@@ -1164,20 +1164,62 @@ function toggleStar(idx) {
     saveState(); renderWords();
 }
 
-function speakWord(text, rate) {
-    if ('speechSynthesis' in window) {
-        speechSynthesis.cancel();
+// ===== 음성 합성 (TTS) 엔진 =====
+let ttsVoices = [];
+let ttsReady = false;
+
+function initTTS() {
+    if (!('speechSynthesis' in window)) return;
+    function loadVoices() {
+        ttsVoices = speechSynthesis.getVoices();
+        if (ttsVoices.length > 0) ttsReady = true;
+    }
+    loadVoices();
+    speechSynthesis.onvoiceschanged = loadVoices;
+    // Chrome 워밍업: 빈 utterance로 초기화
+    const warmup = new SpeechSynthesisUtterance('');
+    warmup.volume = 0;
+    speechSynthesis.speak(warmup);
+}
+initTTS();
+
+function getZhVoice() {
+    if (!ttsVoices.length) ttsVoices = speechSynthesis.getVoices();
+    return ttsVoices.find(v => v.lang === 'zh-CN')
+        || ttsVoices.find(v => v.lang.startsWith('zh'))
+        || null;
+}
+
+function doSpeak(text, rate, onEnd) {
+    if (!('speechSynthesis' in window)) {
+        alert('이 브라우저는 음성 합성을 지원하지 않습니다.');
+        return;
+    }
+    speechSynthesis.cancel();
+    // Chrome 버그 회피: cancel() 후 약간의 지연
+    setTimeout(() => {
         const u = new SpeechSynthesisUtterance(text);
         u.lang = 'zh-CN';
-        u.rate = rate || 0.8;
-        // 중국어 음성 우선 선택
-        const voices = speechSynthesis.getVoices();
-        const zhVoice = voices.find(v => v.lang.startsWith('zh')) || null;
-        if (zhVoice) u.voice = zhVoice;
+        u.rate = rate || 0.85;
+        u.volume = 1;
+        const voice = getZhVoice();
+        if (voice) u.voice = voice;
+        u.onend = () => { if (onEnd) onEnd(); };
+        u.onerror = (e) => { console.warn('TTS error:', e); if (onEnd) onEnd(); };
+        // Chrome 15초 일시정지 버그 회피
+        let resumeTimer = setInterval(() => {
+            if (speechSynthesis.speaking && !speechSynthesis.paused) return;
+            if (speechSynthesis.paused) speechSynthesis.resume();
+        }, 5000);
+        const origEnd = u.onend;
+        u.onend = () => { clearInterval(resumeTimer); if (origEnd) origEnd(); };
+        u.onerror = (e) => { clearInterval(resumeTimer); console.warn('TTS error:', e); if (onEnd) onEnd(); };
         speechSynthesis.speak(u);
-        return u;
-    }
-    return null;
+    }, 50);
+}
+
+function speakWord(text, rate) {
+    doSpeak(text, rate || 0.8);
 }
 
 // ===== 플래시카드 소리 듣기 =====
@@ -1194,27 +1236,19 @@ function fcSpeak(mode) {
     if (!fcWords.length) return;
     const w = fcWords[fcIndex];
     const rate = getFcSpeed();
-    // 예문에서 중국어만 추출 (괄호 앞까지)
     let text = w.hanzi;
     if (mode === 'example' && w.ex) {
         const match = w.ex.match(/^([^(（]+)/);
         text = match ? match[1].trim() : w.ex;
     }
 
-    speechSynthesis.cancel();
     fcSpeaking = true;
     updateSoundBtnState(mode, true);
 
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'zh-CN';
-    u.rate = rate;
-    const voices = speechSynthesis.getVoices();
-    const zhVoice = voices.find(v => v.lang.startsWith('zh')) || null;
-    if (zhVoice) u.voice = zhVoice;
-
-    u.onend = () => { fcSpeaking = false; updateSoundBtnState(mode, false); };
-    u.onerror = () => { fcSpeaking = false; updateSoundBtnState(mode, false); };
-    speechSynthesis.speak(u);
+    doSpeak(text, rate, () => {
+        fcSpeaking = false;
+        updateSoundBtnState(mode, false);
+    });
 }
 
 function fcRepeat() {
