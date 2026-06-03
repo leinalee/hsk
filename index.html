@@ -273,6 +273,113 @@
         .grammar-card .ex .py { color: #e6b800; font-size: 0.85rem; }
         .grammar-card .ex .kr { color: #aaa; font-size: 0.85rem; }
 
+        /* 모의고사 */
+        .mock-intro {
+            background: #1a1a3e; border-radius: 12px; padding: 30px;
+            border: 1px solid #2a2a5e; text-align: center;
+        }
+        .mock-intro h2 { color: #e63946; margin-bottom: 12px; }
+        .mock-intro p { color: #aaa; margin-bottom: 8px; line-height: 1.7; }
+        .mock-intro .start-mock-btn {
+            display: inline-block; margin-top: 20px; padding: 14px 40px;
+            background: #e63946; color: #fff; border: none; border-radius: 10px;
+            font-size: 1.1rem; cursor: pointer; transition: background 0.2s;
+        }
+        .mock-intro .start-mock-btn:hover { background: #c1121f; }
+        .mock-exam { display: none; }
+        .mock-header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #1a1a3e; border-radius: 10px; padding: 14px 20px;
+            margin-bottom: 16px; border: 1px solid #2a2a5e; flex-wrap: wrap; gap: 10px;
+        }
+        .mock-header .timer { font-size: 1.3rem; color: #e63946; font-weight: bold; }
+        .mock-header .section-info { color: #e6b800; }
+        .mock-header .score-info { color: #aaa; }
+        .mock-section-tabs {
+            display: flex; gap: 6px; margin-bottom: 16px;
+        }
+        .mock-section-tabs button {
+            padding: 8px 18px; border-radius: 8px; border: 1px solid #2a2a5e;
+            background: #1a1a3e; color: #aaa; cursor: pointer; font-size: 0.85rem;
+        }
+        .mock-section-tabs button.active { background: #e63946; color: #fff; border-color: #e63946; }
+        .mock-section-tabs button.done { border-color: #2d6a4f; color: #2d6a4f; }
+        .mock-q-block {
+            background: #1a1a3e; border-radius: 12px; padding: 24px;
+            border: 1px solid #2a2a5e; margin-bottom: 14px;
+        }
+        .mock-q-block .q-number {
+            display: inline-block; background: #e63946; color: #fff;
+            padding: 2px 10px; border-radius: 12px; font-size: 0.8rem; margin-bottom: 12px;
+        }
+        .mock-q-block .q-text { font-size: 1.1rem; color: #fff; margin-bottom: 6px; line-height: 1.8; }
+        .mock-q-block .q-sub { color: #aaa; font-size: 0.9rem; margin-bottom: 14px; }
+        .mock-q-block .q-context {
+            background: #0f0f23; padding: 12px 16px; border-radius: 8px;
+            margin-bottom: 14px; line-height: 1.8; color: #ccc; font-size: 1rem;
+        }
+        .mock-q-block .q-context em { color: #e6b800; font-style: normal; text-decoration: underline; }
+        .mock-options { display: flex; flex-direction: column; gap: 8px; }
+        .mock-options label {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 16px; border-radius: 8px; border: 2px solid #2a2a5e;
+            background: #0f0f23; cursor: pointer; transition: all 0.2s; font-size: 0.95rem;
+        }
+        .mock-options label:hover { border-color: #e63946; }
+        .mock-options label.selected { border-color: #e63946; background: rgba(230,57,70,0.1); }
+        .mock-options label.correct-ans { border-color: #2d6a4f; background: rgba(45,106,79,0.15); }
+        .mock-options label.wrong-ans { border-color: #d62828; background: rgba(214,40,40,0.15); }
+        .mock-options input[type="radio"] { accent-color: #e63946; }
+        .mock-writing-input {
+            width: 100%; padding: 12px 16px; border-radius: 8px; border: 2px solid #2a2a5e;
+            background: #0f0f23; color: #e0e0e0; font-size: 1.1rem; outline: none;
+            font-family: inherit;
+        }
+        .mock-writing-input:focus { border-color: #e63946; }
+        .mock-nav-btns {
+            display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap;
+        }
+        .mock-nav-btns button {
+            padding: 10px 24px; border-radius: 8px; border: none;
+            cursor: pointer; font-size: 0.95rem;
+        }
+        .mock-nav-btns .prev-btn { background: #2a2a5e; color: #ccc; }
+        .mock-nav-btns .next-btn { background: #e63946; color: #fff; }
+        .mock-nav-btns .submit-btn { background: #2d6a4f; color: #fff; }
+        .mock-result {
+            display: none; text-align: center; background: #1a1a3e;
+            border-radius: 12px; padding: 40px; border: 1px solid #2a2a5e;
+        }
+        .mock-result .total-score { font-size: 3.5rem; color: #e63946; font-weight: bold; }
+        .mock-result .pass-msg { font-size: 1.3rem; margin: 15px 0; }
+        .mock-result .pass { color: #2d6a4f; }
+        .mock-result .fail { color: #d62828; }
+        .score-breakdown {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px; margin: 20px 0;
+        }
+        .score-breakdown .sb-card {
+            background: #0f0f23; border-radius: 10px; padding: 16px; text-align: center;
+        }
+        .score-breakdown .sb-card .sb-label { color: #aaa; font-size: 0.85rem; }
+        .score-breakdown .sb-card .sb-score { font-size: 1.8rem; font-weight: bold; color: #e6b800; margin-top: 4px; }
+        .mock-review-toggle {
+            margin-top: 16px; padding: 10px 24px; border-radius: 8px;
+            border: 2px solid #e63946; background: transparent; color: #e63946;
+            cursor: pointer; font-size: 0.95rem;
+        }
+        .mock-review { display: none; margin-top: 20px; text-align: left; }
+        .review-item {
+            background: #0f0f23; border-radius: 10px; padding: 16px; margin-bottom: 10px;
+            border-left: 4px solid #2a2a5e;
+        }
+        .review-item.review-correct { border-left-color: #2d6a4f; }
+        .review-item.review-wrong { border-left-color: #d62828; }
+        .review-item .ri-q { color: #fff; margin-bottom: 6px; }
+        .review-item .ri-your { color: #aaa; font-size: 0.9rem; }
+        .review-item .ri-answer { color: #2d6a4f; font-size: 0.9rem; }
+        .review-item .ri-explain { color: #e6b800; font-size: 0.85rem; margin-top: 4px; }
+
         @media (max-width: 600px) {
             .word-card { grid-template-columns: 60px 1fr; }
             .word-card .meaning { grid-column: 1 / -1; }
@@ -297,6 +404,7 @@
     <button onclick="showSection('flashcard')">플래시카드</button>
     <button onclick="showSection('quiz')">퀴즈</button>
     <button onclick="showSection('grammar')">문법</button>
+    <button onclick="showSection('mock')">모의고사</button>
 </nav>
 
 <div class="container">
@@ -419,6 +527,51 @@
     <!-- 문법 -->
     <div id="grammar" class="section">
         <div class="grammar-list" id="grammarList"></div>
+    </div>
+
+    <!-- 모의고사 -->
+    <div id="mock" class="section">
+        <div class="mock-intro" id="mockIntro">
+            <h2>HSK 3급 모의고사</h2>
+            <p>실제 시험과 동일한 형식으로 구성되어 있습니다.</p>
+            <p style="color:#e6b800;">듣기 40문항 (35분) + 독해 30문항 (30분) + 쓰기 10문항 (15분)</p>
+            <p>총 300점 만점 / <strong style="color:#e63946;">180점 이상 합격</strong></p>
+            <p style="font-size:0.85rem;color:#888;margin-top:10px;">
+                * 듣기는 텍스트 기반으로 대체됩니다.<br>
+                * 쓰기는 한자 입력 및 어순 배열로 출제됩니다.
+            </p>
+            <div style="margin-top:10px;">
+                <label style="color:#aaa;cursor:pointer;">
+                    <input type="checkbox" id="mockTimerToggle" checked style="accent-color:#e63946;"> 타이머 사용
+                </label>
+            </div>
+            <button class="start-mock-btn" onclick="startMockExam()">모의고사 시작</button>
+            <div id="mockBestRecord" style="margin-top:15px;color:#aaa;font-size:0.9rem;"></div>
+        </div>
+
+        <div class="mock-exam" id="mockExam">
+            <div class="mock-header">
+                <div class="section-info" id="mockSectionInfo">듣기 - 제1부분</div>
+                <div class="timer" id="mockTimer">35:00</div>
+                <div class="score-info" id="mockProgress">1 / 80</div>
+            </div>
+            <div class="mock-section-tabs" id="mockTabs"></div>
+            <div id="mockQuestions"></div>
+            <div class="mock-nav-btns" id="mockNavBtns">
+                <button class="prev-btn" onclick="mockPrevPage()">이전</button>
+                <button class="next-btn" onclick="mockNextPage()">다음</button>
+                <button class="submit-btn" onclick="confirmSubmitMock()" style="display:none;" id="mockSubmitBtn">제출하기</button>
+            </div>
+        </div>
+
+        <div class="mock-result" id="mockResult">
+            <div class="total-score" id="mockTotalScore"></div>
+            <div id="mockPassMsg"></div>
+            <div class="score-breakdown" id="mockBreakdown"></div>
+            <button class="mock-review-toggle" onclick="toggleMockReview()">오답 확인</button>
+            <button class="start-mock-btn" onclick="resetMockExam()" style="margin-top:10px;font-size:0.95rem;padding:10px 24px;">다시 풀기</button>
+            <div class="mock-review" id="mockReview"></div>
+        </div>
     </div>
 
 </div>
@@ -1152,6 +1305,439 @@ function renderGrammar() {
         </div>`
     ).join('');
 }
+
+// ===== 모의고사 =====
+const mockExamData = {
+    // 듣기 제1부분: 대화 듣고 맞는 그림(설명) 고르기 (10문항)
+    listening1: [
+        {q:"女：你看，外面下雪了！\n男：是啊，今天真冷。",opts:["下雨了","下雪了，天气很冷","出太阳了","刮风了"],ans:1,explain:"女자가 '밖에 눈이 와!'라고 하고, 남자가 '오늘 정말 춥다'고 답했습니다."},
+        {q:"男：你想喝什么？\n女：给我一杯咖啡吧。",opts:["女的想喝茶","女的想喝果汁","女的想喝咖啡","女的想喝水"],ans:2,explain:"여자가 커피 한 잔을 달라고 했습니다."},
+        {q:"女：你每天怎么去上班？\n男：我骑自行车去。",opts:["坐地铁上班","开车上班","骑自行车上班","走路上班"],ans:2,explain:"남자가 자전거를 타고 출근한다고 했습니다."},
+        {q:"男：这件衬衫多少钱？\n女：两百块。",opts:["衬衫一百块","衬衫两百块","衬衫三百块","衬衫五十块"],ans:1,explain:"셔츠 가격은 200위안입니다."},
+        {q:"女：你的爱好是什么？\n男：我喜欢爬山。",opts:["男的喜欢游泳","男的喜欢跑步","男的喜欢爬山","男的喜欢打球"],ans:2,explain:"남자는 등산을 좋아합니다."},
+        {q:"男：医生说你怎么了？\n女：我感冒了，还有点发烧。",opts:["女的腿疼","女的感冒发烧","女的很健康","女的头发很长"],ans:1,explain:"여자가 감기에 걸리고 열이 조금 있다고 했습니다."},
+        {q:"女：我们什么时候出发？\n男：明天早上八点。",opts:["今天下午出发","明天早上八点出发","后天出发","明天下午出发"],ans:1,explain:"내일 아침 8시에 출발합니다."},
+        {q:"男：你住在几楼？\n女：我住在五楼。",opts:["三楼","四楼","五楼","六楼"],ans:2,explain:"여자는 5층에 살고 있습니다."},
+        {q:"女：这个周末你有什么打算？\n男：我打算去图书馆看书。",opts:["去看电影","去图书馆","去超市","去公园"],ans:1,explain:"남자는 도서관에 가서 책을 볼 계획입니다."},
+        {q:"男：你觉得这里的环境怎么样？\n女：很安静，我很喜欢。",opts:["环境很吵","环境很安静","环境很脏","环境一般"],ans:1,explain:"여자는 환경이 조용하고 마음에 든다고 했습니다."},
+    ],
+    // 듣기 제2부분: 짧은 대화 후 질문 답하기 (10문항)
+    listening2: [
+        {q:"女：你吃饱了吗？\n男：吃饱了，谢谢。菜很好吃。\n问题：男的觉得菜怎么样？",opts:["不好吃","很好吃","太咸了","太辣了"],ans:1,explain:"남자가 '요리가 맛있다'고 했습니다."},
+        {q:"男：你的中文说得真好！\n女：哪里哪里，我才学了一年。\n问题：女的学了多长时间中文？",opts:["半年","一年","两年","三年"],ans:1,explain:"여자가 1년 배웠다고 했습니다."},
+        {q:"女：今天的会议几点开始？\n男：下午两点，在三楼的会议室。\n问题：会议在哪里？",opts:["一楼","二楼","三楼会议室","五楼办公室"],ans:2,explain:"회의는 3층 회의실에서 합니다."},
+        {q:"男：你能帮我把这个箱子搬到楼上吗？\n女：没问题，我来帮你。\n问题：女的要做什么？",opts:["去楼下","帮男的搬箱子","买箱子","打扫房间"],ans:1,explain:"여자가 남자의 상자를 옮겨주겠다고 했습니다."},
+        {q:"女：这条裤子太长了，有短一点的吗？\n男：有，你看这条怎么样？\n问题：女的觉得裤子怎么样？",opts:["太贵了","太短了","太长了","很合适"],ans:2,explain:"여자가 바지가 너무 길다고 했습니다."},
+        {q:"男：我经常在这个公园锻炼身体。\n女：是吗？你一般什么时候来？\n男：早上六点。\n问题：男的什么时候锻炼？",opts:["下午","晚上","早上六点","中午"],ans:2,explain:"남자는 아침 6시에 운동합니다."},
+        {q:"女：你把钥匙放在哪儿了？\n男：我放在桌子上了。\n问题：钥匙在哪儿？",opts:["在包里","在桌子上","在门口","在床上"],ans:1,explain:"열쇠는 책상 위에 있습니다."},
+        {q:"男：明天有足球比赛，你去看吗？\n女：当然去！我最喜欢看足球了。\n问题：女的明天要去做什么？",opts:["踢足球","看足球比赛","看电视","去上班"],ans:1,explain:"여자는 내일 축구 시합을 보러 갑니다."},
+        {q:"女：你为什么迟到了？\n男：对不起，路上堵车了。\n问题：男的为什么迟到？",opts:["起晚了","堵车了","下雨了","忘记了"],ans:1,explain:"남자는 길이 막혀서 지각했습니다."},
+        {q:"男：你去过上海吗？\n女：去过，去年夏天去的。那里很热。\n问题：女的什么时候去的上海？",opts:["今年春天","去年冬天","去年夏天","今年秋天"],ans:2,explain:"여자는 작년 여름에 상하이에 갔습니다."},
+    ],
+    // 듣기 제3부분: 대화를 듣고 질문에 답하기 (10문항)
+    listening3: [
+        {q:"女：听说你换工作了？\n男：是的，我现在在一家公司当经理。\n女：太好了，恭喜你！\n问题：男的现在做什么工作？",opts:["老师","医生","经理","司机"],ans:2,explain:"남자는 현재 회사에서 매니저로 일하고 있습니다."},
+        {q:"男：你觉得这个电影怎么样？\n女：故事很有意思，但是太长了。\n问题：女的觉得电影怎么样？",opts:["很无聊","故事好但太长","非常好","很短"],ans:1,explain:"여자는 이야기는 재미있지만 너무 길다고 했습니다."},
+        {q:"女：你的新邻居怎么样？\n男：他们很热情，昨天还送了我们一些水果。\n问题：男的新邻居怎么样？",opts:["不太友好","很热情","很安静","经常吵"],ans:1,explain:"남자의 새 이웃은 매우 친절합니다."},
+        {q:"男：你选好了吗？想吃什么？\n女：我要一碗米饭和一盘鱼。你呢？\n男：我要面包和一杯果汁。\n问题：男的要吃什么？",opts:["米饭和鱼","面包和果汁","面条和茶","蛋糕和咖啡"],ans:1,explain:"남자는 빵과 과일주스를 주문했습니다."},
+        {q:"女：我想请两天假，下周一和周二。\n男：什么原因？\n女：我要去医院检查身体。\n男：好的，没问题。\n问题：女的为什么请假？",opts:["去旅游","参加婚礼","去医院检查","回老家"],ans:2,explain:"여자는 병원에 건강 검진을 받으러 가야 합니다."},
+        {q:"男：你的汉语水平提高了很多啊！\n女：谢谢，我每天都练习，还经常看中文电影。\n问题：女的怎么提高中文水平？",opts:["只看书","每天练习和看中文电影","请老师教","去中国留学"],ans:1,explain:"여자는 매일 연습하고 중국 영화를 자주 봅니다."},
+        {q:"女：你知道去火车站怎么走吗？\n男：你可以坐地铁，在第三站下车。\n问题：怎么去火车站？",opts:["坐公共汽车","走路","坐地铁三站","骑自行车"],ans:2,explain:"지하철을 타고 3번째 역에서 내리면 됩니다."},
+        {q:"男：外面刮风了，你多穿点衣服。\n女：好的，我带上帽子和外套。\n问题：女的要带什么？",opts:["伞和手套","帽子和外套","围巾和帽子","什么都不带"],ans:1,explain:"여자는 모자와 외투를 가져가겠다고 했습니다."},
+        {q:"女：这个照相机是你的吗？\n男：不是，是我同事的。他让我帮他修一下。\n问题：照相机是谁的？",opts:["男的","女的","男的同事","男的朋友"],ans:2,explain:"카메라는 남자의 동료의 것입니다."},
+        {q:"男：你儿子今年上几年级了？\n女：他上三年级了，成绩一直很好。\n问题：女的儿子成绩怎么样？",opts:["不太好","一般","很好","不知道"],ans:2,explain:"여자의 아들은 성적이 계속 좋습니다."},
+    ],
+    // 듣기 제4부분: 긴 대화/독백 후 질문 (10문항)
+    listening4: [
+        {q:"我来北京已经三年了。刚来的时候，我一句中文都不会说，现在我不但能说，而且能读中文报纸了。我觉得学习语言最重要的是每天练习，不要害怕说错。\n问题：说话人学中文多长时间了？",opts:["一年","两年","三年","四年"],ans:2,explain:"화자는 베이징에 온 지 3년이 되었습니다."},
+        {q:"我的爱好是弹钢琴。我从五岁开始学钢琴，到现在已经学了十五年了。每天我都要练习两个小时。虽然有时候很累，但是弹钢琴让我很快乐。\n问题：说话人现在多大？",opts:["十五岁","十八岁","二十岁","二十五岁"],ans:2,explain:"5살부터 시작해서 15년 배웠으므로 현재 20세입니다."},
+        {q:"今天天气预报说，明天北方会下大雪，气温会降到零下十度。请大家注意保暖，出门多穿衣服。如果不必须出门，建议待在家里。\n问题：明天天气怎么样？",opts:["会下雨","天气很热","会下大雪，很冷","有大风"],ans:2,explain:"내일 북방에 큰 눈이 오고 영하 10도까지 내려갑니다."},
+        {q:"这个超市很大，东西也很多。一楼卖水果和蔬菜，二楼卖衣服和鞋子，三楼是电子产品。我经常在一楼买新鲜的水果。\n问题：衣服在几楼？",opts:["一楼","二楼","三楼","四楼"],ans:1,explain:"옷은 2층에서 판매합니다."},
+        {q:"小李最近很忙，他白天在公司上班，晚上还要去学校上课。他打算考一个重要的考试，所以每天都学习到很晚。虽然很累，但他觉得为了将来，现在的努力是值得的。\n问题：小李为什么这么忙？",opts:["工作太多","在准备考试","要结婚了","在搬家"],ans:1,explain:"샤오리는 중요한 시험을 준비하고 있어서 바쁩니다."},
+        {q:"我住的地方离公司很远，坐公共汽车要一个半小时。所以我决定搬到公司附近。虽然新房子比较小，但是上班只要走路十分钟，方便多了。\n问题：说话人为什么搬家？",opts:["房子太旧","想住大房子","离公司太远","房租太贵"],ans:2,explain:"화자는 회사와 너무 멀어서 이사하기로 했습니다."},
+        {q:"中国人过春节的时候，家人会一起吃饺子，孩子们会收到红包。大家见面会说"新年快乐"。春节是中国最重要的节日，一般会放七天假。\n问题：春节一般放几天假？",opts:["三天","五天","七天","十天"],ans:2,explain:"춘절에는 보통 7일간 쉽니다."},
+        {q:"我昨天去了一家新开的饭店。那里的菜很好吃，特别是鱼做得非常好。不过价格有点贵，一个人大概要两百块。环境也很不错，又干净又安静。\n问题：说话人觉得饭店怎么样？",opts:["菜不好吃","很便宜","菜好吃但有点贵","环境不好"],ans:2,explain:"음식은 맛있지만 가격이 좀 비쌉니다."},
+        {q:"妈妈说我应该多锻炼身体。她建议我每天早上跑步半个小时。开始的时候我觉得很累，但是坚持了一个月以后，我觉得身体好多了，精神也好了。\n问题：坚持跑步后怎么样了？",opts:["更累了","身体好多了","没有变化","不想跑了"],ans:1,explain:"한 달간 꾸준히 달린 후 몸이 많이 좋아졌습니다."},
+        {q:"我们学校旁边新开了一个图书馆。那个图书馆很大，有各种各样的书。每天下午放学后，很多学生都会去那里看书或者做作业。我也经常去，因为那里很安静，很适合学习。\n问题：说话人为什么喜欢去图书馆？",opts:["离家近","可以上网","安静，适合学习","有很多朋友"],ans:2,explain:"도서관이 조용하고 공부하기에 적합하기 때문입니다."},
+    ],
+    // 독해 제1부분: 관계 있는 문장 연결 (10문항)
+    reading1: [
+        {q:"这个周末天气很好。",opts:["我们去公园玩吧。","他感冒了。","请关上门。","我不饿。"],ans:0,explain:"날씨가 좋으니 공원에 가자는 것이 자연스럽습니다."},
+        {q:"我的手机坏了。",opts:["你吃饱了吗？","我要去修一下。","明天有考试。","他很高兴。"],ans:1,explain:"핸드폰이 고장났으니 수리하러 가겠다는 것이 자연스럽습니다."},
+        {q:"他每天早上六点起床。",opts:["他是一个很努力的人。","这个蛋糕很甜。","我家有四口人。","冬天很冷。"],ans:0,explain:"매일 6시에 일어나는 것은 부지런한 사람이라는 뜻입니다."},
+        {q:"明天就要考试了。",opts:["我在看电视。","我得好好复习。","超市很远。","他喜欢唱歌。"],ans:1,explain:"내일 시험이니 잘 복습해야 합니다."},
+        {q:"她的裙子非常漂亮。",opts:["她在哪儿买的？","他们是同事。","请把灯关了。","我住在三楼。"],ans:0,explain:"치마가 예쁘니 어디서 샀는지 묻는 것이 자연스럽습니다."},
+        {q:"我对中国历史很感兴趣。",opts:["你去过长城吗？","今天比较冷。","他在厨房做饭。","请给我菜单。"],ans:0,explain:"중국 역사에 관심이 있으니 만리장성에 가봤는지 묻습니다."},
+        {q:"外面下雨了。",opts:["记得带伞。","我喜欢数学。","他个子很高。","你会弹钢琴吗？"],ans:0,explain:"비가 오니 우산을 챙기라는 것이 자연스럽습니다."},
+        {q:"他汉语说得很好。",opts:["他太胖了。","因为他在中国住了五年。","我的脚很疼。","超市在附近。"],ans:1,explain:"중국어를 잘하는 이유는 중국에서 5년 살았기 때문입니다."},
+        {q:"这道菜太辣了。",opts:["给我一杯水吧。","我要去爬山。","他在办公室。","今天是周末。"],ans:0,explain:"매우 매우니 물 한 잔 달라는 것이 자연스럽습니다."},
+        {q:"飞机马上要起飞了。",opts:["请系好安全带。","我想吃面包。","这条河很长。","他去过日本。"],ans:0,explain:"비행기가 곧 이륙하니 안전벨트를 매라는 것이 자연스럽습니다."},
+    ],
+    // 독해 제2부분: 빈칸 채우기 (10문항)
+    reading2: [
+        {q:"他______很早，每天六点就到公司了。",context:"",opts:["起来","出发","出现","搬"],ans:1,explain:"매일 6시에 회사에 도착하니 '출발하다(出发)'가 적합합니다."},
+        {q:"这件事情______解决，大家别担心。",context:"",opts:["容易","必须","经常","马上"],ans:0,explain:"이 일은 해결하기 '쉽다(容易)'가 맞습니다."},
+        {q:"你应该多______身体，这样才能健康。",context:"",opts:["锻炼","提高","帮忙","影响"],ans:0,explain:"몸을 많이 '단련해야(锻炼)' 건강할 수 있습니다."},
+        {q:"______你有问题，______可以问我。",context:"",opts:["如果…就…","虽然…但是…","不但…而且…","因为…所以…"],ans:0,explain:"'만약 문제가 있으면 물어봐도 된다'이므로 如果…就…입니다."},
+        {q:"北京的冬天比上海的______多了。",context:"",opts:["冷","热","凉快","舒服"],ans:0,explain:"베이징의 겨울은 상하이보다 훨씬 '춥습니다(冷)'."},
+        {q:"我______以为他不会来，没想到他来了。",context:"",opts:["一直","马上","已经","才"],ans:0,explain:"'줄곧(一直) 그가 안 올 줄 알았다'가 자연스럽습니다."},
+        {q:"这本词典对学习中文很有______。",context:"",opts:["帮助","办法","关系","变化"],ans:0,explain:"이 사전은 중국어 학습에 '도움이(帮助)' 됩니다."},
+        {q:"他不______聪明，______很努力。",context:"",opts:["但…而且…","不但…而且…","虽然…但是…","只要…就…"],ans:1,explain:"'똑똑할 뿐만 아니라 노력도 한다'이므로 不但…而且…입니다."},
+        {q:"请你把这个______给小王，他在三楼。",context:"",opts:["带","拿","放","接"],ans:0,explain:"'이것을 샤오왕에게 가져다줘'이므로 '带(가져가다)'가 맞습니다."},
+        {q:"中国是一个有______历史的国家。",context:"",opts:["久","旧","老","长"],ans:0,explain:"'오랜(久) 역사'가 자연스럽습니다. 悠久的历史와 같은 표현입니다."},
+    ],
+    // 독해 제3부분: 짧은 지문 읽고 질문 답하기 (10문항)
+    reading3: [
+        {q:"小明每天早上七点起床，先刷牙洗脸，然后吃早饭。他一般吃面包和喝牛奶。吃完早饭后，他骑自行车去学校。从他家到学校大概要二十分钟。",
+         ask:"小明怎么去学校？",opts:["坐公共汽车","走路","骑自行车","坐地铁"],ans:2,explain:"샤오밍은 자전거를 타고 학교에 갑니다."},
+        {q:"昨天是妈妈的生日。我和姐姐一起给妈妈买了一个蛋糕和一束花。晚上，我们全家人一起吃了饭，妈妈非常高兴。她说这是最好的生日礼物。",
+         ask:"妈妈觉得最好的礼物是什么？",opts:["蛋糕","花","全家人一起吃饭","新衣服"],ans:2,explain:"엄마는 온 가족이 함께 식사한 것이 가장 좋은 선물이라고 했습니다."},
+        {q:"王老师今年五十岁了，她教了三十年的中文。她的学生来自很多不同的国家。她对每个学生都很认真，大家都很喜欢她。",
+         ask:"王老师教了多少年中文？",opts:["二十年","二十五年","三十年","三十五年"],ans:2,explain:"왕 선생님은 30년간 중국어를 가르쳤습니다."},
+        {q:"这家饭店的位置很好，在地铁站旁边。它的菜很好吃，特别是红烧鱼。每天中午很多人来这里吃饭，所以你最好提前来，不然要等很长时间。",
+         ask:"为什么要提前去这家饭店？",opts:["因为很远","因为中午人很多","因为晚上不营业","因为菜不好"],ans:1,explain:"점심에 사람이 많아서 미리 가야 합니다."},
+        {q:"去年夏天我去了云南旅游。那里的天气很舒服，不热也不冷。我看了很多美丽的风景，还吃了很多好吃的东西。我决定明年还要再去一次。",
+         ask:"去年夏天的云南天气怎么样？",opts:["很热","很冷","很舒服","经常下雨"],ans:2,explain:"윈난의 날씨는 덥지도 춥지도 않아 편안했습니다."},
+        {q:"图书馆每天早上八点开门，晚上九点关门。周末只开到下午五点。在图书馆里不能大声说话，也不能吃东西。你可以在那里看书、学习或者借书。",
+         ask:"周末图书馆几点关门？",opts:["晚上九点","下午三点","下午五点","中午十二点"],ans:2,explain:"주말에는 오후 5시까지만 운영합니다."},
+        {q:"小张上个月开始减肥。他每天只吃蔬菜和水果，还坚持跑步。一个月以后，他瘦了五公斤。他的朋友们都说他比以前好看了。",
+         ask:"小张瘦了多少？",opts:["三公斤","五公斤","十公斤","两公斤"],ans:1,explain:"샤오장은 5kg 빠졌습니다."},
+        {q:"我奶奶今年八十岁了，但是她身体很健康。她每天早上去公园散步，下午在家看书或者看电视。她说健康最重要的是每天运动和保持好心情。",
+         ask:"奶奶觉得健康最重要的是什么？",opts:["吃药","每天运动和好心情","多吃蔬菜","多睡觉"],ans:1,explain:"할머니는 매일 운동하고 좋은 기분을 유지하는 것이 중요하다고 했습니다."},
+        {q:"李明的公司离家很远。以前他每天坐公共汽车上班，要一个多小时。上个月他买了一辆新车，现在开车去公司只要四十分钟。",
+         ask:"李明现在怎么去公司？",opts:["坐公共汽车","骑自行车","开车","坐地铁"],ans:2,explain:"리밍은 현재 차를 운전하고 출근합니다."},
+        {q:"我的邻居是一对年轻的夫妻。他们去年刚结婚。他们都很热情，经常邀请我去他们家吃饭。上周他们告诉我一个好消息——他们要有孩子了。",
+         ask:"邻居告诉了什么好消息？",opts:["要搬家","要出国","要有孩子了","找到新工作"],ans:2,explain:"이웃이 아이가 생긴다는 좋은 소식을 알려줬습니다."},
+    ],
+    // 쓰기 제1부분: 어순 배열 (5문항) - 올바른 문장 고르기
+    writing1: [
+        {q:"보기: 很 / 今天 / 比较 / 冷",opts:["今天比较很冷。","今天比较冷很。","今天比较冷。","比较今天很冷。"],ans:2,explain:"'오늘은 비교적 춥다.' 今天比较冷。이 올바른 어순입니다."},
+        {q:"보기: 他 / 把 / 了 / 作业 / 做完",opts:["他做完把作业了。","他把作业做完了。","他把做完作业了。","把他作业做完了。"],ans:1,explain:"'그는 숙제를 다 했다.' 他把作业做完了。이 올바른 어순입니다."},
+        {q:"보기: 被 / 我的 / 了 / 偷 / 手机",opts:["我的手机被偷了。","被我的手机偷了。","我的被手机偷了。","偷了我的被手机。"],ans:0,explain:"'내 핸드폰이 도둑맞았다.' 我的手机被偷了。이 올바른 어순입니다."},
+        {q:"보기: 一边 / 一边 / 她 / 唱歌 / 跳舞",opts:["她唱歌一边跳舞一边。","一边她唱歌一边跳舞。","她一边唱歌一边跳舞。","她一边跳舞唱歌一边。"],ans:2,explain:"'그녀는 노래하면서 춤춘다.' 她一边唱歌一边跳舞。이 올바른 어순입니다."},
+        {q:"보기: 越 / 汉语 / 越 / 学 / 有意思",opts:["汉语越有意思越学。","汉语越学越有意思。","越汉语学越有意思。","汉语学越越有意思。"],ans:1,explain:"'중국어는 배울수록 재미있다.' 汉语越学越有意思。이 올바른 어순입니다."},
+    ],
+    // 쓰기 제2부분: 빈칸에 한자 쓰기 (5문항) - 병음 보고 한자 입력
+    writing2: [
+        {q:"我每天早上都要（shuā yá）。",answer:"刷牙",hint:"양치하다",opts:["刷牙","洗脸","洗手","刷子"],ans:0,explain:"shuā yá = 刷牙 (양치하다)"},
+        {q:"他是一个很（cōngming）的孩子。",answer:"聪明",hint:"똑똑하다",opts:["聪明","安静","认真","简单"],ans:0,explain:"cōngming = 聪明 (똑똑하다)"},
+        {q:"我喜欢（tán gāngqín）。",answer:"弹钢琴",hint:"피아노를 치다",opts:["弹钢琴","唱歌","跳舞","画画"],ans:0,explain:"tán gāngqín = 弹钢琴 (피아노를 치다)"},
+        {q:"他在（tú shū guǎn）看书。",answer:"图书馆",hint:"도서관",opts:["图书馆","办公室","教室","超市"],ans:0,explain:"tú shū guǎn = 图书馆 (도서관)"},
+        {q:"请把（bīng xiāng）里的水果拿出来。",answer:"冰箱",hint:"냉장고",opts:["冰箱","洗衣机","空调","电梯"],ans:0,explain:"bīng xiāng = 冰箱 (냉장고)"},
+    ]
+};
+
+// 모의고사 상태
+let mockState = {
+    sections: [], // [{name, label, questions, timeLimit}]
+    currentSection: 0,
+    currentPage: 0, // page within section (5 questions per page)
+    answers: {},  // "section-qIdx" => chosen index
+    timer: null,
+    timeLeft: 0,
+    useTimer: true,
+    started: false,
+};
+
+function loadMockBest() {
+    try { return JSON.parse(localStorage.getItem('hsk3_mock_best')) || null; } catch { return null; }
+}
+function saveMockBest(data) { localStorage.setItem('hsk3_mock_best', JSON.stringify(data)); }
+
+function showMockBestRecord() {
+    const best = loadMockBest();
+    const el = document.getElementById('mockBestRecord');
+    if (best) {
+        el.innerHTML = `최고 기록: <strong style="color:#e63946;">${best.total}/300점</strong> (듣기 ${best.listening}/100 | 독해 ${best.reading}/100 | 쓰기 ${best.writing}/100) — ${best.pass ? '합격' : '불합격'}`;
+    }
+}
+
+function startMockExam() {
+    mockState.useTimer = document.getElementById('mockTimerToggle').checked;
+    mockState.answers = {};
+    mockState.currentSection = 0;
+    mockState.currentPage = 0;
+
+    // 섹션 구성
+    mockState.sections = [
+        {name:'listening1',label:'듣기 제1부분 (대화→설명)',questions:mockExamData.listening1,timeLimit:9*60,part:'listening'},
+        {name:'listening2',label:'듣기 제2부분 (대화→질문)',questions:mockExamData.listening2,timeLimit:9*60,part:'listening'},
+        {name:'listening3',label:'듣기 제3부분 (대화→질문)',questions:mockExamData.listening3,timeLimit:9*60,part:'listening'},
+        {name:'listening4',label:'듣기 제4부분 (독백→질문)',questions:mockExamData.listening4,timeLimit:8*60,part:'listening'},
+        {name:'reading1',label:'독해 제1부분 (문장 연결)',questions:mockExamData.reading1,timeLimit:10*60,part:'reading'},
+        {name:'reading2',label:'독해 제2부분 (빈칸 채우기)',questions:mockExamData.reading2,timeLimit:10*60,part:'reading'},
+        {name:'reading3',label:'독해 제3부분 (지문 독해)',questions:mockExamData.reading3,timeLimit:10*60,part:'reading'},
+        {name:'writing1',label:'쓰기 제1부분 (어순 배열)',questions:mockExamData.writing1,timeLimit:8*60,part:'writing'},
+        {name:'writing2',label:'쓰기 제2부분 (한자 선택)',questions:mockExamData.writing2,timeLimit:7*60,part:'writing'},
+    ];
+
+    document.getElementById('mockIntro').style.display = 'none';
+    document.getElementById('mockExam').style.display = 'block';
+    document.getElementById('mockResult').style.display = 'none';
+    mockState.started = true;
+
+    renderMockTabs();
+    loadMockSection(0);
+}
+
+function renderMockTabs() {
+    const tabs = document.getElementById('mockTabs');
+    tabs.innerHTML = mockState.sections.map((s, i) => {
+        const answered = s.questions.filter((_, qi) => mockState.answers[s.name+'-'+qi] !== undefined).length;
+        const total = s.questions.length;
+        const isDone = answered === total;
+        const cls = i === mockState.currentSection ? 'active' : (isDone ? 'done' : '');
+        const short = s.label.replace(/[（(].+[）)]/, '');
+        return `<button class="${cls}" onclick="loadMockSection(${i})">${short} (${answered}/${total})</button>`;
+    }).join('');
+}
+
+function loadMockSection(idx) {
+    if (mockState.timer) clearInterval(mockState.timer);
+    mockState.currentSection = idx;
+    mockState.currentPage = 0;
+
+    const sec = mockState.sections[idx];
+    document.getElementById('mockSectionInfo').textContent = sec.label;
+
+    if (mockState.useTimer) {
+        mockState.timeLeft = sec.timeLimit;
+        updateMockTimer();
+        mockState.timer = setInterval(() => {
+            mockState.timeLeft--;
+            updateMockTimer();
+            if (mockState.timeLeft <= 0) {
+                clearInterval(mockState.timer);
+                // 자동으로 다음 섹션 또는 제출
+                if (idx < mockState.sections.length - 1) {
+                    loadMockSection(idx + 1);
+                } else {
+                    submitMockExam();
+                }
+            }
+        }, 1000);
+    } else {
+        document.getElementById('mockTimer').textContent = '--:--';
+    }
+
+    renderMockTabs();
+    renderMockPage();
+}
+
+function updateMockTimer() {
+    const m = Math.floor(mockState.timeLeft / 60);
+    const s = mockState.timeLeft % 60;
+    const el = document.getElementById('mockTimer');
+    el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    el.style.color = mockState.timeLeft <= 60 ? '#ff4444' : '#e63946';
+}
+
+function renderMockPage() {
+    const sec = mockState.sections[mockState.currentSection];
+    const qs = sec.questions;
+    const perPage = 5;
+    const totalPages = Math.ceil(qs.length / perPage);
+    const start = mockState.currentPage * perPage;
+    const pageQs = qs.slice(start, start + perPage);
+
+    const totalQ = mockState.sections.reduce((a, s) => a + s.questions.length, 0);
+    const totalAnswered = Object.keys(mockState.answers).length;
+    document.getElementById('mockProgress').textContent = `${totalAnswered} / ${totalQ} 답변`;
+
+    let html = '';
+    pageQs.forEach((q, i) => {
+        const qIdx = start + i;
+        const key = sec.name + '-' + qIdx;
+        const selected = mockState.answers[key];
+
+        // 질문 번호 (전체 기준)
+        let globalNum = qIdx + 1;
+        for (let si = 0; si < mockState.currentSection; si++) {
+            globalNum += mockState.sections[si].questions.length;
+        }
+
+        html += `<div class="mock-q-block">`;
+        html += `<div class="q-number">제${globalNum}문</div>`;
+
+        // 독해 3부분은 지문 + 질문
+        if (sec.name === 'reading3') {
+            html += `<div class="q-context">${q.q.replace(/\n/g,'<br>')}</div>`;
+            html += `<div class="q-text">${q.ask}</div>`;
+        } else if (sec.name.startsWith('listening')) {
+            html += `<div class="q-context" style="white-space:pre-line;">${q.q}</div>`;
+        } else if (sec.name === 'writing1') {
+            html += `<div class="q-text">${q.q}</div>`;
+            html += `<div class="q-sub">올바른 문장을 고르세요.</div>`;
+        } else if (sec.name === 'writing2') {
+            html += `<div class="q-text">${q.q}</div>`;
+            html += `<div class="q-sub">병음에 해당하는 한자를 고르세요. (힌트: ${q.hint})</div>`;
+        } else if (sec.name === 'reading2') {
+            html += `<div class="q-text">${q.q}</div>`;
+            html += `<div class="q-sub">빈칸에 알맞은 것을 고르세요.</div>`;
+        } else {
+            html += `<div class="q-text">${q.q}</div>`;
+            html += `<div class="q-sub">알맞은 것을 고르세요.</div>`;
+        }
+
+        html += `<div class="mock-options">`;
+        const labels = ['A','B','C','D'];
+        q.opts.forEach((opt, oi) => {
+            const cls = selected === oi ? 'selected' : '';
+            html += `<label class="${cls}" onclick="selectMockAnswer('${key}',${oi},this)">
+                <input type="radio" name="${key}" ${selected === oi ? 'checked' : ''}>
+                ${labels[oi]}. ${opt}
+            </label>`;
+        });
+        html += `</div></div>`;
+    });
+
+    document.getElementById('mockQuestions').innerHTML = html;
+
+    // 네비게이션 버튼
+    const isLastSection = mockState.currentSection === mockState.sections.length - 1;
+    const isLastPage = mockState.currentPage >= totalPages - 1;
+    document.getElementById('mockSubmitBtn').style.display = (isLastSection && isLastPage) ? 'inline-block' : 'none';
+}
+
+function selectMockAnswer(key, optIdx, labelEl) {
+    mockState.answers[key] = optIdx;
+    // UI 업데이트
+    const parent = labelEl.parentElement;
+    parent.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    labelEl.classList.add('selected');
+    labelEl.querySelector('input').checked = true;
+    renderMockTabs();
+    // 진행률 업데이트
+    const totalQ = mockState.sections.reduce((a, s) => a + s.questions.length, 0);
+    const totalAnswered = Object.keys(mockState.answers).length;
+    document.getElementById('mockProgress').textContent = `${totalAnswered} / ${totalQ} 답변`;
+}
+
+function mockPrevPage() {
+    const sec = mockState.sections[mockState.currentSection];
+    if (mockState.currentPage > 0) {
+        mockState.currentPage--;
+        renderMockPage();
+    } else if (mockState.currentSection > 0) {
+        mockState.currentSection--;
+        const prevSec = mockState.sections[mockState.currentSection];
+        mockState.currentPage = Math.ceil(prevSec.questions.length / 5) - 1;
+        if (!mockState.useTimer) renderMockTabs();
+        else loadMockSection(mockState.currentSection);
+        renderMockPage();
+    }
+    window.scrollTo({top: document.getElementById('mockExam').offsetTop - 80, behavior: 'smooth'});
+}
+
+function mockNextPage() {
+    const sec = mockState.sections[mockState.currentSection];
+    const totalPages = Math.ceil(sec.questions.length / 5);
+    if (mockState.currentPage < totalPages - 1) {
+        mockState.currentPage++;
+        renderMockPage();
+    } else if (mockState.currentSection < mockState.sections.length - 1) {
+        loadMockSection(mockState.currentSection + 1);
+    }
+    window.scrollTo({top: document.getElementById('mockExam').offsetTop - 80, behavior: 'smooth'});
+}
+
+function confirmSubmitMock() {
+    const totalQ = mockState.sections.reduce((a, s) => a + s.questions.length, 0);
+    const totalAnswered = Object.keys(mockState.answers).length;
+    const unanswered = totalQ - totalAnswered;
+    if (unanswered > 0) {
+        if (!confirm(`아직 ${unanswered}문제를 풀지 않았습니다.\n그래도 제출하시겠습니까?`)) return;
+    } else {
+        if (!confirm('모의고사를 제출하시겠습니까?')) return;
+    }
+    submitMockExam();
+}
+
+function submitMockExam() {
+    if (mockState.timer) clearInterval(mockState.timer);
+
+    // 채점
+    let listeningCorrect = 0, listeningTotal = 0;
+    let readingCorrect = 0, readingTotal = 0;
+    let writingCorrect = 0, writingTotal = 0;
+    const reviewItems = [];
+
+    mockState.sections.forEach(sec => {
+        sec.questions.forEach((q, qi) => {
+            const key = sec.name + '-' + qi;
+            const userAns = mockState.answers[key];
+            const correct = userAns === q.ans;
+
+            if (sec.part === 'listening') { listeningTotal++; if (correct) listeningCorrect++; }
+            else if (sec.part === 'reading') { readingTotal++; if (correct) readingCorrect++; }
+            else { writingTotal++; if (correct) writingCorrect++; }
+
+            const labels = ['A','B','C','D'];
+            reviewItems.push({
+                section: sec.label,
+                question: sec.name === 'reading3' ? (q.q.substring(0,40)+'... → '+q.ask) : (q.q.length > 60 ? q.q.substring(0,60)+'...' : q.q),
+                userAnswer: userAns !== undefined ? labels[userAns]+'. '+q.opts[userAns] : '미답변',
+                correctAnswer: labels[q.ans]+'. '+q.opts[q.ans],
+                correct,
+                explain: q.explain || ''
+            });
+        });
+    });
+
+    const listeningScore = Math.round((listeningCorrect / listeningTotal) * 100);
+    const readingScore = Math.round((readingCorrect / readingTotal) * 100);
+    const writingScore = Math.round((writingCorrect / writingTotal) * 100);
+    const totalScore = listeningScore + readingScore + writingScore;
+    const pass = totalScore >= 180;
+
+    // 결과 표시
+    document.getElementById('mockExam').style.display = 'none';
+    document.getElementById('mockResult').style.display = 'block';
+    document.getElementById('mockTotalScore').textContent = `${totalScore} / 300`;
+    document.getElementById('mockPassMsg').innerHTML = pass
+        ? `<span class="pass">축하합니다! 합격입니다!</span>`
+        : `<span class="fail">아쉽지만 불합격입니다. 180점 이상이 필요합니다.</span>`;
+
+    document.getElementById('mockBreakdown').innerHTML = `
+        <div class="sb-card"><div class="sb-label">듣기</div><div class="sb-score">${listeningScore}/100</div><div style="color:#888;font-size:0.8rem;">${listeningCorrect}/${listeningTotal} 정답</div></div>
+        <div class="sb-card"><div class="sb-label">독해</div><div class="sb-score">${readingScore}/100</div><div style="color:#888;font-size:0.8rem;">${readingCorrect}/${readingTotal} 정답</div></div>
+        <div class="sb-card"><div class="sb-label">쓰기</div><div class="sb-score">${writingScore}/100</div><div style="color:#888;font-size:0.8rem;">${writingCorrect}/${writingTotal} 정답</div></div>
+    `;
+
+    // 오답 리뷰
+    document.getElementById('mockReview').innerHTML = reviewItems.map(r =>
+        `<div class="review-item ${r.correct ? 'review-correct' : 'review-wrong'}">
+            <div style="color:#888;font-size:0.8rem;margin-bottom:4px;">${r.section}</div>
+            <div class="ri-q">${r.question.replace(/\n/g,' ')}</div>
+            <div class="ri-your">${r.correct ? '&#10003;' : '&#10007;'} 내 답: ${r.userAnswer}</div>
+            ${!r.correct ? `<div class="ri-answer">정답: ${r.correctAnswer}</div>` : ''}
+            <div class="ri-explain">${r.explain}</div>
+        </div>`
+    ).join('');
+
+    // 최고 기록 저장
+    const best = loadMockBest();
+    if (!best || totalScore > best.total) {
+        saveMockBest({ total: totalScore, listening: listeningScore, reading: readingScore, writing: writingScore, pass });
+    }
+}
+
+function toggleMockReview() {
+    const el = document.getElementById('mockReview');
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function resetMockExam() {
+    if (mockState.timer) clearInterval(mockState.timer);
+    mockState.started = false;
+    document.getElementById('mockExam').style.display = 'none';
+    document.getElementById('mockResult').style.display = 'none';
+    document.getElementById('mockIntro').style.display = 'block';
+    showMockBestRecord();
+}
+
+// 초기화 시 최고기록 표시
+showMockBestRecord();
 
 // 키보드 단축키
 document.addEventListener('keydown', e => {
